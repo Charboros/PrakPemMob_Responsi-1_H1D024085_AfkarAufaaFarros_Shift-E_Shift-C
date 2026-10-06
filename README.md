@@ -1,77 +1,78 @@
-# Laporan Praktikum Pemrograman Mobile
-
-**Nama**        : Afkar Aufaa Farros  
-**NIM**         : H1D024085  
-**Shift**       : Awal E / Akhir C  
-**Praktikum**   : Pemrograman Mobile
+# Pokédex App
+> Aplikasi Katalog dan Eksplorasi Pokémon
 
 ---
 
-## 📝 Tugas Pertemuan 1
-**Tanggal**: Selasa, 1 September 2026
-
-<img src="docs/pertemuan1_tentang_jualan.jpeg" width="300" alt="Tugas Pertemuan 1" />
-
-**Kesimpulan Praktikum:**  
-Pada pertemuan pertama, praktikum memberikan pemahaman dasar mengenai konsep pengembangan antarmuka secara deklaratif menggunakan **Jetpack Compose**. Mahasiswa mempelajari penggunaan komponen UI dasar seperti `Text`, `Image`, `Column`, `Row`, `Spacer`, dan `Card` untuk menyusun tata letak halaman informasi dasar aplikasi (*Tentang Jualan*).
-
----
-
-## 📝 Tugas Pertemuan 2
-**Tanggal**: Selasa, 8 September 2026
-
-<p>
-  <img src="docs/pertemuan2_basic_info.jpeg" width="280" alt="Pertemuan 2 - Basic Info Screen" />
-  &nbsp;&nbsp;
-  <img src="docs/pertemuan2_hubungi_kami.jpeg" width="280" alt="Pertemuan 2 - Hubungi Kami Screen" />
-</p>
-
-**Kesimpulan Praktikum:**  
-Pertemuan kedua berfokus pada implementasi navigasi antar layar dan formulir interaktif. Mahasiswa mempelajari penggunaan **Jetpack Navigation Compose** (`NavHost` & `NavController`), struktur layout `Scaffold` dengan `TopAppBar`, serta komponen input data seperti `OutlinedTextField` dan `Button` pada halaman formulir kontak (*Hubungi Kami*).
+## 👤 Identitas Praktikan
+- **Nama Lengkap:** Afkar Aufaa Farros
+- **NIM:** H1D024085
+- **Shift Awal:** Shift-C
+- **Shift Akhir:** Shift-E
+- **Link Video Demo/Penjelasan:** [Tambahkan link video di sini](https://...)
 
 ---
 
-## 📝 Tugas Pertemuan 3
-**Tanggal**: Selasa, 15 September 2026
-
-<p>
-  <img src="docs/31.jpeg" width="260" alt="Pertemuan 3 - Kategori 1" />
-  &nbsp;&nbsp;
-  <img src="docs/32.jpeg" width="260" alt="Pertemuan 3 - Kategori 2" />
-  &nbsp;&nbsp;
-  <img src="docs/33.jpeg" width="260" alt="Pertemuan 3 - Kategori 3" />
-</p>
-
-**Kesimpulan Praktikum:**  
-Pertemuan ketiga membahas pengelolaan data terstruktur dan antarmuka berbasis daftar/grid dinamis. Mahasiswa mempelajari pembuatan model data (`Category` & `Product`), pemanfaatan *dummy data*, pembuatan komponen berulang menggunakan `LazyRow` untuk filter kategori dan `LazyVerticalGrid` untuk daftar produk, serta penerapan *state management* (`remember` & `mutableStateOf`).
+## 📱 Deskripsi Aplikasi
+Pokédex App adalah aplikasi mobile interaktif berbasis Android yang memungkinkan pengguna untuk mencari, melihat, dan mengeksplorasi informasi mendetail mengenai berbagai jenis Pokémon. Aplikasi ini menyelesaikan masalah sulitnya mendapatkan detail statistik, tipe, berat, dan tinggi karakter Pokémon secara cepat. Dengan antarmuka modern yang ramah pengguna, siapa saja dapat menjadi *Pokémon Master*!
 
 ---
 
-## 📝 Tugas Pertemuan 4
-**Tanggal**: Selasa, 22 September 2026
+## 🛠️ Penjelasan Teknis
 
-<p>
-  <img src="docs/41.png" width="260" alt="Pertemuan 4 - Gambar 1" />
-  &nbsp;&nbsp;
-  <img src="docs/42.png" width="260" alt="Pertemuan 4 - Gambar 2" />
-  &nbsp;&nbsp;
-  <img src="docs/43.png" width="260" alt="Pertemuan 4 - Gambar 3" />
-</p>
+### 1. Spesifikasi & Tech Stack
+- **Bahasa:** Kotlin
+- **UI Framework:** Jetpack Compose (Material 3)
+- **Min SDK:** 29 | **Target SDK:** 37
+- **Pola Arsitektur:** MVVM (Model-View-ViewModel) / Clean Architecture
+- **Library Utama:**
+  - `Navigation Compose` (Routing halaman)
+  - `ViewModel` & `StateFlow` (State Management)
+  - `Retrofit` & `Gson` (Networking / REST API)
+  - `Coil` (Image Loading)
+  - `Kotlin Coroutines` (Asynchronous processing)
 
-**Kesimpulan Praktikum:**  
-Pertemuan keempat berfokus pada implementasi halaman detail produk (*DetailProductScreen*), navigasi dengan pengiriman argumen (*Navigation Compose Arguments*), pengelolaan state kuantitas produk, serta penyempurnaan antarmuka agar sesuai dengan standar desain material.
+### 2. Fitur Utama
+- **Fitur 1 - Daftar dan Grid Pokémon:** Mengambil daftar lebih dari 150 Pokémon pertama melalui PokeAPI menggunakan Retrofit. Data di-parse secara otomatis melalui data class Gson dan direpresentasikan secara mulus tanpa *lag* menggunakan `LazyVerticalGrid`.
+- **Fitur 2 - Filter dan Pencarian Cerdas:** Pengguna dapat mencari Pokémon berdasarkan nama di *Search Bar*. Proses ini memanfaatkan filter data secara responsif di layer `ViewModel`, yang langsung memicu proses recomposition (pembaruan UI) via `StateFlow` di `PokemonHomeScreen`.
+- **Fitur 3 - Layar Detail Komprehensif:** Saat item diklik, aplikasi melakukan *routing* sambil melempar argumen berupa ID Pokemon ke `PokemonDetailScreen`. Layar secara mandiri mengatur state (*Loading*, *Success*, *Error*) sambil memuat data secara asynchronous untuk menampilkan berat, tinggi, tipe, dan statistik stat (ditampilkan menggunakan *LinearProgressIndicator* Material3).
+
+### 3. Struktur Direktori Proyek
+Struktur proyek ini menerapkan standar Modern Android Architecture (MVVM Layer):
+```text
+app/src/main/java/com/example/praktikkummobile/
+├── data/
+│   ├── model/       # Data Class / Entity (Pokemon, PokemonDetail)
+│   ├── remote/      # Konfigurasi Retrofit & API Service
+│   └── repository/  # Jembatan pengambil data (PokemonRepository)
+├── ui/
+│   ├── components/  # (Bisa diisi reusable Compose blocks)
+│   ├── screens/     # Screen Composable UI + ViewModel (PokemonHomeScreen, DetailScreen, ViewModel)
+│   └── theme/       # Color, Type, Theme bawaan Material 3
+└── MainActivity.kt  # Entry-point utama + Navigation Routing
+```
 
 ---
 
-## 📝 Tugas Pertemuan 5
-**Tanggal**: Selasa, 29 September 2026
+## 📸 Tangkapan Layar (Screenshots)
 
-<p>
-  <img src="docs/51.jpeg" width="280" alt="Pertemuan 5 - Integrasi API & ViewModel 1" />
-  &nbsp;&nbsp;
-  <img src="docs/52.jpeg" width="280" alt="Pertemuan 5 - Integrasi API & ViewModel 2" />
-</p>
+| Layar Utama (Daftar & Search) | Layar Loading/Error | Layar Detail Pokemon |
+|:---:|:---:|:---:|
+| *(Tambahkan screenshot home)* | *(Tambahkan screenshot loading)* | *(Tambahkan screenshot detail)* |
 
-**Kesimpulan Praktikum:**  
-Pertemuan kelima berfokus pada integrasi aplikasi dengan Backend API menggunakan **Retrofit**, **Coroutines**, dan **ViewModel**. Mahasiswa mempelajari cara melakukan pemanggilan jaringan (*network calls*) untuk mengambil data kategori dan produk secara asinkron, menerapkan *UI State Management* (`ProductUiState` dengan `Loading`, `Success`, dan `Error`), serta mengelola siklus hidup data dengan `StateFlow` dan `collectAsState()`.
+---
 
+## 🚀 Cara Menjalankan Proyek
+
+1. **Prasyarat:**
+   - Android Studio (Koala / Ladybug / versi terbaru disarankan).
+   - JDK 11 atau lebih baru.
+   - Perangkat fisik Android dengan USB Debugging aktif atau Emulator.
+
+2. **Langkah:**
+   ```bash
+   # Clone repository
+   git clone https://github.com/Charboros/PrakPemMob_Kotlin_H1D024085_AfkarAufaaFarros_Shift-E_Shift-C.git
+   ```
+3. Buka folder proyek di **Android Studio**.
+4. Tunggu proses **Gradle Sync** selesai.
+5. Pilih target perangkat/emulator, lalu klik tombol **Run (`Shift + F10`)**.
