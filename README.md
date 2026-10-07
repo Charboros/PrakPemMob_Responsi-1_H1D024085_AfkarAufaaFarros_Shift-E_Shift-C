@@ -8,7 +8,7 @@
 - **NIM:** H1D024085
 - **Shift Awal:** Shift-C
 - **Shift Akhir:** Shift-E
-- **Link Video Demo/Penjelasan:** [Tambahkan link video di sini](https://...)
+- **Link Video Demo/Penjelasan:** [YouTube Demo](https://youtu.be/jt-0Wi34edo)
 
 ---
 
