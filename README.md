@@ -55,9 +55,9 @@ app/src/main/java/com/example/praktikkummobile/
 
 ## 📸 Tangkapan Layar (Screenshots)
 
-| Layar Utama (Daftar & Search) | Layar Loading/Error | Layar Detail Pokemon |
-|:---:|:---:|:---:|
-| *(Tambahkan screenshot home)* | *(Tambahkan screenshot loading)* | *(Tambahkan screenshot detail)* |
+| Layar Utama (Daftar & Search) | Layar Detail Pokemon |
+|:---:|:---:|
+| ![Home](docs/Home.jpeg) | ![Detail](docs/Detail.jpeg) |
 
 ---
 
